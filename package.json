@@ -2,6 +2,7 @@
   "name": "orcid",
   "version": "0.0.1",
   "description": "Utilities for working with ORCID identifiers and service.",
+  "sideEffects": false,
   "keywords": [
     "Open Science",
     "ORCID"
@@ -22,24 +23,31 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
+  "bin": "./dist/orcid.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
-    "lint": "eslint \"src/**/*.ts\" -c .eslintrc.js --max-warnings 1",
+    "copy:version": "echo \"const version = '\"$npm_package_version\"';\nexport default version;\" > src/version.ts",
+    "unlink": "npm uninstall -g orcid;",
+    "link": "npm run unlink; npm link;",
+    "test": "npm run copy:version && jest",
+    "test:watch": "npm run copy:version && jest --watchAll",
+    "dev": "npm run link && esbuild src/cli/index.ts --bundle --outfile=dist/orcid.js --platform=node --watch",
+    "lint": "npm run copy:version && eslint \"src/**/*.ts\" -c .eslintrc.js --max-warnings 1",
     "lint:format": "prettier --check src/*.ts src/**/*.ts",
     "build:esm": "tsc --module es2015   --outDir dist/esm",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "declarations": "tsc --declaration --emitDeclarationOnly --declarationMap --outDir dist/types",
-    "build": "npm-run-all -l clean -p build:cjs build:esm declarations",
+    "build:cli": "esbuild src/cli/index.ts --bundle --outfile=dist/orcid.js --platform=node",
+    "build": "npm-run-all -l clean copy:version -p build:cli build:cjs build:esm declarations",
     "prepublishOnly": "npm run build && npm run test"
   },
   "devDependencies": {
     "@types/jest": "^29.2.3",
     "chalk": "^4.1.2",
+    "esbuild": "^0.16.12",
     "eslint": "^8.21.0",
     "eslint-config-curvenote": "latest",
     "jest": "28.1.3",
@@ -48,5 +56,10 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.7",
     "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "commander": "^9.4.1",
+    "myst-cli-utils": "^0.0.8",
+    "node-fetch": "^3.3.0"
   }
 }

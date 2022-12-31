@@ -1,3 +1,4 @@
+export const ORCID_URL = 'https://orcid.org';
 const ORCID_REGEX_STRICT = '^([0-9]{4}-){3}[0-9]{3}[0-9X]$';
 const ORCID_REGEX = '^(http(s)?://(www.)?orcid.org/)?([0-9]{4}-){3}[0-9]{3}[0-9X]$';
 
@@ -37,7 +38,7 @@ export function normalize(value?: string | null, opts?: Options): string | undef
 export function buildUrl(value?: string | null, opts?: Options): string | undefined {
   const orcid = normalize(value, opts);
   if (!orcid) return undefined;
-  return `https://orcid.org/${orcid}`;
+  return `${ORCID_URL}/${orcid}`;
 }
 
 export default {

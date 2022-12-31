@@ -12,7 +12,23 @@ A utility and CLI to work with [ORCID](https://orcid.org) in your applications.
 npm install orcid
 ```
 
-## Overview & Usage
+## Using the Command Line
+
+Use the `search` command to find an ORCID given an authors full name (in quotes). The query is powered by OpenAlex, and gives a publication hint, last known institution, and concepts that the author publishes about. The command only returns results for authors with ORCIDs.
+
+```bash
+orcid search "rowan cockett"
+
+> Found 1 result for "rowan cockett" with an ORCID:
+
+> Rowan Cockett
+> 0000-0002-7859-8394
+>   Hint: SimPEG: An open source framework for simulation ...
+>   Last Institution: University of British Columbia
+>   Concepts: Geology, Computer science, Engineering, Physics ...
+```
+
+## Using Node
 
 ```ts
 import orcid from 'orcid';
