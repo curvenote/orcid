@@ -1,6 +1,6 @@
 {
   "name": "orcid",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Utilities for working with ORCID identifiers and service.",
   "sideEffects": false,
   "keywords": [
