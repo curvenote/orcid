@@ -49,7 +49,7 @@ type Author = {
 
 async function fetchAuthor(session: ISession, id: string): Promise<Author> {
   const url = id.replace('https://openalex.org', 'https://api.openalex.org');
-  session.log.debug(`Fetching infor from ${url}`);
+  session.log.debug(`Fetching information from ${url}`);
   const resp = await fetch(url);
   const data = (await resp.json()) as Author;
   return data;
