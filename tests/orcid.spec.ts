@@ -1,4 +1,4 @@
-import { validate, normalize, buildUrl } from '../src';
+import orcid from '../src';
 
 describe('ORCID Tests', () => {
   test.each([
@@ -20,7 +20,7 @@ describe('ORCID Tests', () => {
     ['standard http with X (strict)', 'http://orcid.org/0000-0003-2554-180X', true, false],
     ['standard https with X (strict)', 'https://orcid.org/0000-0003-2554-180X', true, false],
   ])('validate %s', (_, value, strict, result) => {
-    expect(validate(value, { strict })).toBe(result);
+    expect(orcid.validate(value, { strict })).toBe(result);
   });
   test.each([
     ['undefined', undefined, undefined],
@@ -36,7 +36,7 @@ describe('ORCID Tests', () => {
       '0000-0003-2554-180X',
     ],
   ])('normalize %s', (_, value, result) => {
-    expect(normalize(value)).toBe(result);
+    expect(orcid.normalize(value)).toBe(result);
   });
   test.each([
     ['undefined', undefined, undefined],
@@ -48,6 +48,6 @@ describe('ORCID Tests', () => {
       'https://orcid.org/0000-0002-7859-8394',
     ],
   ])('buildUrl %s', (_, value, result) => {
-    expect(buildUrl(value)).toBe(result);
+    expect(orcid.buildUrl(value)).toBe(result);
   });
 });

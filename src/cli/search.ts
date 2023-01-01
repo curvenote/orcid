@@ -3,7 +3,7 @@ import type { ISession } from 'myst-cli-utils';
 import { clirun, getSession } from 'myst-cli-utils';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import { normalize, ORCID_URL } from '..';
+import orcid, { ORCID_URL } from '..';
 
 type OpenAlexQueryResult = {
   id: string;
@@ -81,7 +81,7 @@ export async function checkTemplate(session: ISession, name: string) {
   );
   authors.forEach((result) => {
     session.log.info(`${chalk.green.bold(result.author.display_name)}`);
-    session.log.info(`${chalk.blue.bold(normalize(result.author.orcid))}`);
+    session.log.info(`${chalk.blue.bold(orcid.normalize(result.author.orcid))}`);
     session.log.info(`  Hint: ${chalk.dim(result.query.hint)}`);
     session.log.info(
       `  Last Institution: ${chalk.dim(
