@@ -1,6 +1,6 @@
 export const ORCID_URL = 'https://orcid.org';
 const ORCID_REGEX_STRICT = '^([0-9]{4}-){3}[0-9]{3}[0-9X]$';
-const ORCID_REGEX = '^(http(s)?://(www.)?orcid.org/)?([0-9]{4}-){3}[0-9]{3}[0-9X]$';
+const ORCID_REGEX = '^((http(s)?://)?(www.)?orcid.org/)?([0-9]{4}-){3}[0-9]{3}[0-9X]$';
 
 export type Options = {
   strict?: boolean;
@@ -26,7 +26,7 @@ function validate(value?: string | null, opts?: Options): boolean {
  */
 function normalize(value?: string | null, opts?: Options): string | undefined {
   if (!value || !validate(value, opts)) return undefined;
-  return value.replace(/^https?:\/\/(www\.)?orcid\.org\//, '');
+  return value.replace(/^(https?:\/\/)?(www\.)?orcid\.org\//, '');
 }
 
 /**
