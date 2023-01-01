@@ -7,6 +7,6 @@ const program = new Command();
 
 addSearchCLI(program);
 
-program.version(`v${version}`, '-v, --version', 'Print the current version of jtex');
+program.version(`v${version}`, '-v, --version', 'Print the current version of orcid');
 program.option('-d, --debug', 'Log out any errors to the console.');
 program.parse(process.argv);
