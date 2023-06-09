@@ -1,8 +1,15 @@
 {
   "name": "orcid",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Utilities for working with ORCID identifiers and service.",
   "sideEffects": false,
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "bin": "./dist/orcid.cjs",
   "keywords": [
     "Open Science",
     "ORCID"
@@ -20,44 +27,33 @@
   "bugs": {
     "url": "https://github.com/curvenote/orcid/issues"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
-  "bin": "./dist/orcid.js",
-  "files": [
-    "dist"
-  ],
   "scripts": {
+    "prepublishOnly": "npm run build && npm run test",
     "clean": "rm -rf dist",
     "copy:version": "echo \"const version = '\"$npm_package_version\"';\nexport default version;\" > src/version.ts",
     "unlink": "npm uninstall -g orcid;",
     "link": "npm run unlink; npm link;",
-    "test": "npm run copy:version && jest",
-    "test:watch": "npm run copy:version && jest --watchAll",
-    "dev": "npm run link && esbuild src/cli/index.ts --bundle --outfile=dist/orcid.js --platform=node --watch",
-    "lint": "npm run copy:version && eslint \"src/**/*.ts\" -c .eslintrc.js --max-warnings 1",
-    "lint:format": "prettier --check src/*.ts src/**/*.ts",
-    "build:esm": "tsc --module es2015   --outDir dist/esm",
-    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "declarations": "tsc --declaration --emitDeclarationOnly --declarationMap --outDir dist/types",
-    "build:cli": "esbuild src/cli/index.ts --bundle --outfile=dist/orcid.js --platform=node",
-    "build": "npm-run-all -l clean copy:version -p build:cli build:cjs build:esm declarations",
-    "prepublishOnly": "npm run build && npm run test"
+    "dev": "npm run link && esbuild src/cli/index.ts --bundle --outfile=dist/orcid.cjs --platform=node --watch",
+    "build:cli": "esbuild src/cli/index.ts --bundle --outfile=dist/orcid.cjs --platform=node",
+    "lint": "eslint \"src/**/*.ts*\" -c ./.eslintrc.cjs",
+    "lint:format": "prettier --check \"src/**/*.{ts,tsx,md}\"",
+    "test": "npm run copy:version && vitest run",
+    "test:watch": "npm run copy:version && vitest watch",
+    "build:esm": "tsc --project ./tsconfig.json --module es2015 --outDir dist --declaration",
+    "build": "npm-run-all -l clean -p build:esm build:cli"
   },
   "devDependencies": {
-    "@types/jest": "^29.2.3",
-    "chalk": "^4.1.2",
-    "commander": "^9.4.1",
-    "esbuild": "^0.16.12",
-    "eslint": "^8.21.0",
+    "@types/node": "^20.2.5",
+    "chalk": "^5.2.0",
+    "commander": "^10.0.1",
+    "esbuild": "^0.17.19",
+    "eslint": "^8.42.0",
     "eslint-config-curvenote": "latest",
-    "jest": "28.1.3",
-    "myst-cli-utils": "^0.0.8",
-    "node-fetch": "^3.3.0",
+    "myst-cli-utils": "^1.0.0",
+    "node-fetch": "^3.3.1",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.8.0",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^28.0.7",
-    "typescript": "^4.9.3"
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.3",
+    "vitest": "^0.32.0"
   }
 }

@@ -3,7 +3,7 @@ import type { ISession } from 'myst-cli-utils';
 import { clirun, getSession } from 'myst-cli-utils';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
-import orcid, { ORCID_URL } from '..';
+import { orcid, ORCID_URL } from '../index.js';
 
 type OpenAlexQueryResult = {
   id: string;

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import version from '../version';
-import { addSearchCLI } from './search';
+import version from '../version.js';
+import { addSearchCLI } from './search.js';
 
 const program = new Command();
 
