@@ -1,4 +1,5 @@
-import orcid from '../src';
+import { describe, expect, test } from 'vitest';
+import { orcid } from '../src';
 
 describe('ORCID Tests', () => {
   test.each([
